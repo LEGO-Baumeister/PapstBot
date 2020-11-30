@@ -30,7 +30,7 @@ async def pray(ctx, arg1=None, arg2=None):
     elif arg1.lower() in credo:
         await ctx.send("Credo")
     elif arg1.lower() in ave_maria:
-        await ctx.send("Ave Maria")
+        await ave_maria_fun(ctx=ctx, voice=False, iso=arg2)
 
     if ctx.message.author.voice and ctx.author.voice.channel:
         channel = ctx.message.author.voice.channel
@@ -44,7 +44,7 @@ async def on_message(message):
 
     msg: str = message.content
 
-    if ("+" in msg or "†" in msg) and not msg.startswith("+"):
+    if ("+" in msg or "†" in msg) and len(msg) < 2:
         await message.channel.send("Amen.", tts=True)
     await client.process_commands(message)
 
@@ -107,31 +107,37 @@ the power and the glory are yours
 now and for ever.
 Amen.""", tts=True)
 
-            
-
+async def ave_maria_fun(ctx, voice: bool, iso: str):
+    if voice:
+        pass
+    else:
+        if iso == "de":
+            await ctx.send("""Gegrüßet seist du, Maria, voll der Gnade,
+der Herr ist mit dir.
+Du bist gebenedeit unter den Frauen,
+und gebenedeit ist die Frucht deines Leibes, Jesus.""", tts=True)
+            await ctx.send("""Heilige Maria, Mutter Gottes,
+bitte für uns Sünder
+jetzt und in der Stunde unseres Todes.
+Amen.""", tts=True)
+        elif iso == "la":
+            await ctx.send("""Ave Maria, gratia plena,
+Dominus tecum.
+Benedicta tu in mulieribus,
+et benedictus fructus ventris tui, Iesus.""", tts=True)
+            await ctx.send("""Sancta Maria, Mater Dei,
+ora pro nobis peccatoribus
+nunc et in hora mortis nostrae.
+Amen""", tts=True)
+        elif iso == "en":
+            await ctx.send("""Hail Mary, full of grace,
+the Lord is with thee.
+Blessed art thou amongst women,
+and blessed is the fruit of thy womb, Jesus.""", tts=True)
+            await ctx.send("""Holy Mary, Mother of God,
+pray for us sinners,
+now and at the hour of our death.
+Amen.""", tts=True)
 
 
 client.run(token)
-# async def on_message(self, message):
-#     if message.author == client.user:
-#         return
-
-#     msg: str = message.content
-
-#     if (msg.startswith("+") or msg.startswith("†")) and len(msg) > 1:
-#         cmd: str = msg[1:].lower().split(" ")
-#         if cmd == "prayer":
-#             if message.author.voice.voice_channel != None:
-#                 print(str(message.author.voice.voice_channel))
-#         elif cmd == "random":
-#             pass
-#         elif cmd == "help":
-#             pass
-#         elif cmd == "lord" or cmd == "herr":
-#             pass
-#         elif cmd == "christ" or cmd == "christus":
-#             pass
-#         elif cmd == "baptize" or cmd == "taufe":
-#             pass
-#         elif "+" in msg or "†" in msg:
-#             await message.channel.send("Amen.", tts=True)
