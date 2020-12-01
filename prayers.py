@@ -95,4 +95,4 @@ carnis resurrectionem,
 vitam aeternam.
 Amen."""]
 
-credo_en = [""" """, ]
+credo_en = [""" """]
