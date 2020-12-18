@@ -32,8 +32,11 @@ async def on_message(message):
     await client.process_commands(message)
 
     if message.channel.name != "musik-bots" and (msg.startswith(".") or msg.startswith("!") or msg.startswith(">")):
-        await message.delete()
-        await message.channel.send("Bitte schreibe Musik-Commands in \"musik-bots\"")
+        if message.author.bot:
+            await message.delete()
+        elif message.author.bot:
+            await message.delete()
+            await message.channel.send("Bitte schreibe Musik-Commands in \"musik-bots\"")
     elif message.channel.name == "musik-bots" and (not (msg.startswith(".") or msg.startswith("!") or msg.startswith(">"))):
         if not message.author.bot:
             await message.delete()
