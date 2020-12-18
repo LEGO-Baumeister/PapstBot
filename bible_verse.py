@@ -16,7 +16,9 @@ class BibleVerse():
         a = soup.find('a', {"class" : "vc"})
         source = a.string
 
-        as_array = [text, source]
-
-        return as_array
+        if source == None:
+            return get_verse()
+        else:
+            as_array = [text, source]
+            return as_array
 

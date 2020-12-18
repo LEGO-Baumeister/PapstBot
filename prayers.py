@@ -95,4 +95,6 @@ carnis resurrectionem,
 vitam aeternam.
 Amen."""]
 
-credo_en = [""" """]
+credo_en = ["""I believe in God,
+the Father Almighty,
+Creator of heaven and earth,"""]

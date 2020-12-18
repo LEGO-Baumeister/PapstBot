@@ -31,6 +31,16 @@ async def on_message(message):
         await message.channel.send("Amen.", tts=True)
     await client.process_commands(message)
 
+    if message.channel.name != "musik-bots" and (msg.startswith(".") or msg.startswith("!") or msg.startswith(">")):
+        await message.delete()
+        await message.channel.send("Bitte schreibe Musik-Commands in \"musik-bots\"")
+    elif message.channel.name == "musik-bots" and (not (msg.startswith(".") or msg.startswith("!") or msg.startswith(">"))):
+        if not message.author.bot:
+            await message.delete()
+            await message.channel.send("Dieser Channel ist nur für Bot-Commands")
+        else:
+            pass
+
 
 @client.command(aliases=["bete"])
 async def pray(ctx, arg1=None, arg2=None):
@@ -53,9 +63,9 @@ async def pray(ctx, arg1=None, arg2=None):
     elif arg1.lower() in ave_maria:
         await ave_maria_fun(ctx=ctx, voice=False, iso=arg2)
 
-    # if ctx.message.author.voice and ctx.author.voice.channel:
-    #     channel = ctx.message.author.voice.channel
-    #     await channel.connect()
+    if ctx.message.author.voice and ctx.author.voice.channel:
+        channel = ctx.message.author.voice.channel
+        await channel.connect()
 
 
 @client.command(aliases=["taufe"])
@@ -76,7 +86,7 @@ async def random(ctx):
 
 
 
-@tasks.loop(seconds=25)
+@tasks.loop(seconds=35)
 async def change_status():
     await client.change_presence(activity=discord.Game(choice(statuses)))
 
